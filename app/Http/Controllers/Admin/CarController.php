@@ -78,6 +78,7 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
+        // Validate the request data
         $validated = $request->validate([
             'merk' => 'required|string|max:255',
             'nama' => 'required|string|max:255',
