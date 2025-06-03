@@ -6,20 +6,14 @@
     --dark: #0E2E50;
 }
 
-body {
-    background-color: #FFFFFF !important; /* Force body background to white, removing any other color */
-    margin: 0;
-    padding: 0;
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
 }
 
-/*
-  Target the main wrapper div: <div class="container-xxl bg-white p-0">
-  which is a direct child of the <body>.
-  This makes this container full-width.
-*/
-body > .container-xxl.bg-white.p-0 {
-    max-width: none !important;
-}
 
 /*** Spinner ***/
 #spinner {
@@ -72,36 +66,24 @@ body > .container-xxl.bg-white.p-0 {
     border-radius: 50px;
 }
 
-/* === Custom NavLink Style === */
-.navbar-light .navbar-nav .nav-link {
-    /* color: rgba(255, 255, 255, 0.7); Warna default terang */
-    transition: color 0.3s ease, font-weight 0.3s ease;
+
+/*** Navbar ***/
+.nav-bar {
+    position: relative;
+    margin-top: 45px;
+    padding: 0 3rem;
+    transition: .5s;
+    z-index: 9999;
 }
 
-/* Saat hover atau aktif */
-.navbar-light .navbar-nav .nav-link:hover,
-.navbar-light .navbar-nav .nav-link.active {
-    /* color: var(--primary); atau bisa juga: #ffffff */
-    font-weight: 600;
-}
-
-.navbar {
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
+.nav-bar.sticky-top {
+    position: sticky;
+    padding: 0;
+    z-index: 9999;
 }
 
 .navbar {
     box-shadow: 0 0 30px rgba(0, 0, 0, .08);
-}
-
-.navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.5); /* Optional: ubah warna border */
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 .navbar .dropdown-toggle::after {
@@ -133,6 +115,10 @@ body > .container-xxl.bg-white.p-0 {
 }
 
 @media (max-width: 991.98px) {
+    .nav-bar {
+        margin: 0;
+        padding: 0;
+    }
 
     .navbar-light .navbar-nav .nav-link  {
         margin-right: 0;
@@ -176,12 +162,10 @@ body > .container-xxl.bg-white.p-0 {
 
 
 /*** Header ***/
-.header {
-    /* padding-top: 80px; Tambahkan jarak supaya tidak tertutup navbar */
-    background-color: #ffffff;
-}
-
 @media (min-width: 992px) {
+    .header {
+        margin-top: -120px;
+    }
 }
 
 .header-carousel .owl-nav {
@@ -230,9 +214,9 @@ body > .container-xxl.bg-white.p-0 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* background: #000000 !important; */
+    background: #FFFFFF !important;
     border-radius: 50px;
-    /* border: 1px dashed var(--primary) !important; */
+    border: 1px dashed var(--primary) !important;
 }
 
 
@@ -274,6 +258,117 @@ body > .container-xxl.bg-white.p-0 {
 .cat-item:hover div * {
     color: #FFFFFF !important;
 }
+
+
+/*** Property List ***/
+.nav-pills .nav-item .btn {
+    color: var(--dark);
+}
+
+.nav-pills .nav-item .btn:hover,
+.nav-pills .nav-item .btn.active {
+    color: #FFFFFF;
+}
+
+.property-item {
+    box-shadow: 0 0 30px rgba(0, 0, 0, .08);
+}
+
+.property-item img {
+    transition: .5s;
+}
+
+.property-item:hover img {
+    transform: scale(1.1);
+}
+
+.property-item .border-top {
+    border-top: 1px dashed rgba(0, 185, 142, .3) !important;
+}
+
+.property-item .border-end {
+    border-right: 1px dashed rgba(0, 185, 142, .3) !important;
+}
+
+
+/*** Team ***/
+.team-item {
+    box-shadow: 0 0 30px rgba(0, 0, 0, .08);
+    transition: .5s;
+}
+
+.team-item .btn {
+    color: var(--primary);
+    background: #FFFFFF;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .15);
+}
+
+.team-item .btn:hover {
+    color: #FFFFFF;
+    background: var(--primary);
+}
+
+.team-item:hover {
+    border-color: var(--secondary) !important;
+}
+
+.team-item:hover .bg-primary {
+    background: var(--secondary) !important;
+}
+
+.team-item:hover .bg-primary i {
+    color: var(--secondary) !important;
+}
+
+
+/*** Testimonial ***/
+.testimonial-carousel {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+@media (min-width: 576px) {
+    .testimonial-carousel {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+
+.testimonial-carousel .testimonial-item .border {
+    border: 1px dashed rgba(0, 185, 142, .3) !important;
+}
+
+.testimonial-carousel .owl-nav {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    top: calc(50% - 20px);
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.testimonial-carousel .owl-nav .owl-prev,
+.testimonial-carousel .owl-nav .owl-next {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background: var(--primary);
+    border-radius: 40px;
+    font-size: 20px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-nav .owl-prev:hover,
+.testimonial-carousel .owl-nav .owl-next:hover {
+    background: var(--dark);
+}
+
 
 /*** Footer ***/
 .footer .btn.btn-social {
