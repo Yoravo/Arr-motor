@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('merek');
             $table->string('nama');
-            $table->enum('transmisi', ['manual', 'automatic']);
-            $table->enum('bahan_bakar', ['bensin', 'diesel', 'listrik']);
+            $table->string('slug')->unique();
+            $table->enum('transmisi', ['manual', 'matic']);
+            $table->enum('bahan_bakar', ['bensin', 'solar', 'listrik']);
             $table->year('tahun');
             $table->decimal('harga', 15, 2);
             $table->enum('status', ['tersedia', 'terjual'])->default('tersedia');

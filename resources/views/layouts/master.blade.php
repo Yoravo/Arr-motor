@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('assets/welcome/img/icon-deal.png') }}" rel="icon">
+    <link href="{{ asset('assets/1/arrmotor.png') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,9 +27,50 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets/welcome/css/bootstrap.min.css') }}" rel="stylesheet">
+    
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/welcome/css/style.css') }}" rel="stylesheet">
+    <style>
+        /* Fade transition */
+        #modalImage {
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        #modalImage.loaded {
+            opacity: 1;
+        }
+
+        /* Active thumbnail styling */
+        .img-thumbnail.active-thumb {
+            border: 2px solid #198754 !important;
+            box-shadow: 0 0 5px rgba(25, 135, 84, 0.6);
+        }
+
+        /* Modal background override */
+        #imageModal .modal-content {
+            background-color: #111 !important;
+            border: none;
+        }
+
+        #imageModal .modal-body {
+            padding: 0 !important;
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                width: 70px !important;
+                height: auto;
+            }
+
+            .navbar-brand h1 {
+                font-size: 1.25rem;
+                /* lebih kecil */
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -46,33 +87,51 @@
 
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-            <div class="container-fluid">
-                <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
-                    <div class="icon p-2 me-2">
-                        <img class="img-fluid" src="{{ asset('assets/welcome/img/icon-deal.png') }}" alt="Icon"
-                            style="width: 30px; height: 30px;">
-                    </div>
-                    <h1 class="m-0">ARR MOTOR</h1>
+            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap">
+                <a href="{{ route('welcome') }}" class="navbar-brand d-flex align-items-center mb-0">
+                    <img class="img-fluid me-2" src="{{ asset('assets/1/arrmotor2.png') }}" alt="Icon"
+                        style="width: 90px; height: 50px;">
+                    <span class="fw-bold fs-4 m-0">ARR MOTOR</span>
                 </a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a href="{{ route('welcome') }}" class="nav-item nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}">Home</a>
-                        <a href="{{ route('about') }}" class="nav-item nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About Us</a>
-                        <a href="{{ route('contact') }}" class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
+                        <a href="{{ route('welcome') }}"
+                            class="nav-item nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}">Home</a>
+                        <a href="{{ route('about') }}"
+                            class="nav-item nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About Us</a>
+                        <a href="{{ route('contact') }}"
+                            class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
                     </div>
                     @if (Route::has('login'))
                         @auth
-                            @if (Auth::user()->role === 'admin')
-                                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary ms-lg-3">Dashboard</a>
-                            @else
-                                <a href="{{ route('welcome') }}" class="btn btn-primary ms-lg-3">Dashboard</a>
-                            @endif
+                            <div class="dropdown ms-lg-3 mt-2 mt-lg-0">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                                    @if (Auth::user()->role === 'admin')
+                                        <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                        </li>
+                                    @else
+                                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                                    @endif
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button class="dropdown-item" type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-primary msl-lg-3">Masuk</a>
+                            <a href="{{ route('login') }}" class="btn btn-primary ms-lg-3 mt-2 mt-lg-0">Masuk</a>
                         @endauth
                     @endif
                 </div>
@@ -80,8 +139,8 @@
         </nav>
         <!-- Navbar End -->
 
-
         @yield('content')
+
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -105,8 +164,8 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link text-white-50" href="">About Us</a>
-                        <a class="btn btn-link text-white-50" href="">Contact Us</a>
+                        <a class="btn btn-link text-white-50" href="{{ route('about') }}">About Us</a>
+                        <a class="btn btn-link text-white-50" href="{{ route('contact') }}">Contact Us</a>
                     </div>
                 </div>
             </div>
@@ -127,9 +186,10 @@
 
     </div>
 
+    @yield('scripts')
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/welcome/lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('assets/welcome/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('assets/welcome/lib/waypoints/waypoints.min.js') }}"></script>

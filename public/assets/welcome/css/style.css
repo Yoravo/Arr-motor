@@ -7,16 +7,11 @@
 }
 
 body {
-    background-color: #FFFFFF !important; /* Force body background to white, removing any other color */
+    background-color: #FFFFFF !important;
     margin: 0;
     padding: 0;
 }
 
-/*
-  Target the main wrapper div: <div class="container-xxl bg-white p-0">
-  which is a direct child of the <body>.
-  This makes this container full-width.
-*/
 body > .container-xxl.bg-white.p-0 {
     max-width: none !important;
 }
