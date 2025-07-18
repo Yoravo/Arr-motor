@@ -18,6 +18,8 @@ Route::get('/mobil/{slug}', [CarDetailController::class, 'show'])->name('cars.de
 //     return view('dashboard');
 // })->middleware(['auth', 'user'])->name('dashboard');
 
+Route::get('/register', [HomeController::class, 'register'])->name('register');
+
 Route::middleware('auth', 'user')->group(function(){
     Route::get('/dashboard', function () {
         return view('dashboard');

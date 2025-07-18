@@ -31,4 +31,8 @@ class HomeController extends Controller
     public function contact(){
         return view('contact');
     }
+
+    public function register(){
+        abort(403, 'Unauthorized action.');
+    }
 }
