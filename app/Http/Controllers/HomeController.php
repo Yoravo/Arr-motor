@@ -33,6 +33,6 @@ class HomeController extends Controller
     }
 
     public function register(){
-        abort(403, 'Unauthorized action.');
+        abort(403, 'Fitur Sedang Di Nonaktifkan');
     }
 }
